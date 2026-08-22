@@ -13,10 +13,11 @@ export function verifyAppGateToken(token) {
 }
 
 export function appGateCookieOptions() {
+  const isProd = env.nodeEnv === 'production';
   return {
     httpOnly: true,
-    secure: env.nodeEnv === 'production',
-    sameSite: 'lax',
+    secure: isProd,
+    sameSite: isProd ? 'none' : 'lax',
     domain: env.cookieDomain,
     maxAge: 12 * 60 * 60 * 1000,
     path: '/',
