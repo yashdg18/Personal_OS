@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { background: #0b100e; }
+  body { margin: 0; min-width: 320px; background: #0b100e; color: #f4f4e9; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+  body { overflow-x: hidden; }
+  button, input { font: inherit; }
+  textarea, select { font: inherit; }
+  button:disabled { cursor: not-allowed; opacity: 0.62; }
+  ::selection { background: rgba(158, 212, 75, 0.25); color: #f4f4e9; }
+}
+
+@layer components {
+  .field { @apply w-full rounded-xl border border-line bg-panel px-3.5 py-3 text-sm text-cream outline-none transition placeholder:text-muted/60 focus:border-moss/70 focus:ring-2 focus:ring-moss/10; }
+  .button-primary { @apply inline-flex items-center justify-center gap-2 rounded-xl bg-moss px-4 py-3 text-sm font-semibold text-ink transition hover:bg-[#b4e564] focus:outline-none focus:ring-2 focus:ring-moss/40; }
+  .button-secondary { @apply inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-panel px-4 py-3 text-sm font-medium text-cream transition hover:border-moss/50 hover:text-moss; }
+  .skeleton { @apply animate-pulse bg-panel; }
+  .animate-page { animation: page-in 420ms ease-out both; }
+  .progress-dot { @apply aspect-square w-full max-w-[18px] justify-self-center rounded-[5px] bg-[#3f4742] transition; }
+  .progress-dot.passed { @apply bg-cream shadow-[0_0_10px_rgba(244,244,233,0.15)]; }
+  .progress-dot.current { @apply bg-amber shadow-[0_0_14px_rgba(232,170,85,0.35)]; }
+  .progress-dot.missed { @apply bg-rose/70; }
+  .progress-dot.future { @apply bg-[#3f4742]; }
+}
+
+@layer utilities {
+  .scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; width: 0; height: 0; }
+}
+
+@keyframes page-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 640px) {
+  .field { padding-top: 0.7rem; padding-bottom: 0.7rem; }
+  input, textarea, select { font-size: 16px; }
+}
