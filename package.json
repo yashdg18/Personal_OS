@@ -5,7 +5,7 @@
   "description": "Private personal management system built with MERN.",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
-    "build": "npm ci --prefix server && npm ci --prefix client && npm run build --prefix client",
+    "build": "npm ci --prefix server && npm ci --include=dev --prefix client && npm run build --prefix client",
     "start": "npm run start --prefix server"
   },
   "devDependencies": {
