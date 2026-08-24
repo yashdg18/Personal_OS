@@ -47,7 +47,7 @@ const authLimiter = rateLimit({
   message: { success: false, error: { message: 'Too many authentication attempts. Try again later.', code: 'RATE_LIMITED' } },
 });
 
-app.get('/api', (_req, res) => res.json({ success: true, data: { name: 'My Personal OS API', version: '0.1.0' } }));
+app.get('/api', (_req, res) => res.json({ success: true, data: { name: 'yashOS API', version: '0.1.0' } }));
 app.use('/api/health', healthRoutes);
 app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/access', authLimiter, accessRoutes);
