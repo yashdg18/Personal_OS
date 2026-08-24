@@ -66,7 +66,7 @@ export async function passkeyStatus(_req, res) {
 export async function passkeyRegistrationOptions(req, res) {
   const credentials = await AppAccessCredential.find().select('credentialId transports');
   const options = await generateRegistrationOptions({
-    rpName: 'My Personal OS',
+    rpName: 'yashOS',
     rpID: rpIdForRequest(req),
     userName: 'yash',
     userDisplayName: 'Yash',
