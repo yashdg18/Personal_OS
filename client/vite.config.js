@@ -9,8 +9,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['apple-touch-icon.png'],
       manifest: {
-        name: 'My Personal OS',
-        short_name: 'Personal OS',
+        name: 'yashOS',
+        short_name: 'yashOS',
         description: 'Private personal management system - goals, habits, focus, and more.',
         start_url: '/',
         scope: '/',
