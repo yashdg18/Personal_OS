@@ -48,13 +48,12 @@ export default function SettingsPage() {
     } catch (requestError) { setError(getRequestError(requestError, 'Could not enable notifications.')); }
   }
 
-  async function sendTest() {
+   async function sendTest() {
     setMessage(''); setError('');
-    const sent = await sendTestNotification();
-    if (sent) setMessage('Test notification sent.');
-    else setError('Enable notifications first.');
+    const result = await sendTestNotification();
+    if (result.ok) setMessage('Test notification sent.');
+    else setError(`Notification failed: ${result.reason}`);
   }
-
   return <div className="animate-page space-y-7">
     <section><p className="text-xs font-semibold uppercase tracking-[0.16em] text-moss">Settings</p><h1 className="mt-3 font-display text-4xl font-semibold tracking-[-0.03em] text-cream sm:text-5xl">Tune your workspace.</h1><p className="mt-3 max-w-2xl text-sm leading-6 text-muted">Small controls that keep the rest of your Personal OS dependable.</p></section>
     <section className="flex flex-col justify-between gap-4 rounded-2xl border border-moss/20 bg-moss/5 p-6 shadow-glow sm:flex-row sm:items-center"><div className="flex items-center gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-xl bg-ink text-moss"><CircleUserRound size={18} /></span><div><h2 className="font-display text-xl font-semibold text-cream">Your profile</h2><p className="mt-1 text-sm text-muted">{user?.name || 'Yash'} · {user?.email}</p><p className="mt-1 text-xs text-muted">Add or update your personal details and profile photo.</p></div></div><Link to="/profile" className="button-secondary self-start sm:self-auto">Edit profile <ArrowRight size={16} /></Link></section>
