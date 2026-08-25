@@ -129,19 +129,29 @@ export function NotificationProvider({ children }) {
     return result;
   }
 
-  function sendNotification(title, body, tag, target = '/today?add=1') {
-    if (!supported || permission !== 'granted') return false;
-    const notification = new Notification(title, { body, tag, renotify: true });
-    notification.onclick = () => {
-      window.focus();
-      window.location.assign(target);
-      notification.close();
-    };
-    return true;
+  async function sendNotification(title, body, tag, target = '/today?add=1') {
+    if (!supported) return { ok: false, reason: 'Notifications are not supported in this browser.' };
+    if (permission !== 'granted') return { ok: false, reason: `Permission is "${permission}", not granted. Enable notifications first.` };
+    if (!('serviceWorker' in navigator)) return { ok: false, reason: 'This browser has no service worker support.' };
+    try {
+      const registration = await navigator.serviceWorker.ready;
+      if (!registration) return { ok: false, reason: 'No active service worker registration found.' };
+      await registration.showNotification(title, {
+        body,
+        tag,
+        renotify: true,
+        icon: '/icon-192.png',
+        badge: '/icon-192.png',
+        data: { target },
+      });
+      return { ok: true };
+    } catch (err) {
+      return { ok: false, reason: `${err.name || 'Error'}: ${err.message || String(err)}` };
+    }
   }
 
   async function sendTestNotification() {
-    if (permission !== 'granted') return false;
+    if (permission !== 'granted') return { ok: false, reason: `Permission is "${permission}". Tap "Enable notifications" first.` };
     return sendNotification('Personal OS reminder', 'Your next meaningful step is waiting. Click to add today’s goal.', 'personal-os-test');
   }
 
